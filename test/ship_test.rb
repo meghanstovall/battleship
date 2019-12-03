@@ -1,23 +1,4 @@
 
-# pry(main)> cruiser.health
-# #=> 3
-#
-# pry(main)> cruiser.sunk?
-# #=> false
-#
-# pry(main)> cruiser.hit
-#
-# pry(main)> cruiser.health
-# #=> 2
-#
-# pry(main)> cruiser.hit
-#
-# pry(main)> cruiser.health
-# #=> 1
-#
-# pry(main)> cruiser.sunk?
-# #=> false
-#
 # pry(main)> cruiser.hit
 #
 # pry(main)> cruiser.sunk?
@@ -46,5 +27,20 @@ class ShipTest < Minitest::Test
     assert_equal false, cruiser.sunk?
   end
 
+  def test_ship_is_it
+    cruiser = Ship.new("Cruiser", 3)
 
+    assert_equal 2, cruiser.hit
+    assert_equal 2, cruiser.health
+  end
+
+  def test_ship_has_sunk
+    cruiser = Ship.new("Cruiser", 3)
+    cruiser.hit
+    cruiser.hit
+    cruiser.hit
+    cruiser.hit
+
+    assert_equal true, cruiser.sunk?
+  end
 end
