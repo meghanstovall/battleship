@@ -1,10 +1,3 @@
-
-# pry(main)> cruiser.hit
-#
-# pry(main)> cruiser.sunk?
-# #=> true
-
-
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
