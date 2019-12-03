@@ -1,0 +1,3 @@
+class ShipTest
+
+end
