@@ -8,7 +8,7 @@
 gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative '../lib/ship'
+require './lib/ship'
 
 class ShipTest < Minitest::Test
 
@@ -27,7 +27,7 @@ class ShipTest < Minitest::Test
     assert_equal false, cruiser.sunk?
   end
 
-  def test_ship_is_it
+  def test_ship_is_hit
     cruiser = Ship.new("Cruiser", 3)
 
     assert_equal 2, cruiser.hit
