@@ -23,12 +23,9 @@ class Board
 
   def valid_coordinate?(coordinate)
     coordinates = @cells.keys
-    coordinates.each do |keys|
-      if coordinate == keys
-      return true
-      else
-        return false
-      end
+    coordinates.any? do |keys|
+      return true if coordinate == keys
+      false
     end
   end
 end
