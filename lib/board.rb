@@ -36,13 +36,17 @@ class Board
       return false
     end
 
-  #  coordinates_consecutive(array_of_coordinates)
+  #coordinates_consecutive(array_of_coordinates)
 
   end
 
   # def coordinates_consecutive(array_of_coordinates)
+  #   letter_array = []
+  #   number_array = []
+  #   array_of_coordinates.each do |coordinate|
+  #     letter_array << coordinate.first
+  #     number_array << coordinate.last
   #
-  #
-  #
+  #   end
   # end
 end
