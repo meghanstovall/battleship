@@ -1,7 +1,9 @@
 class Board
   attr_reader :board, :cells
 
-  def initialize()
+  def initialize
+    @letter_array = []
+    @number_array = []
     @cells = {
       "A1" => Cell.new("A1"),
       "A2" => Cell.new("A2"),
@@ -23,12 +25,41 @@ class Board
 
   def valid_coordinate?(coordinate)
     coordinates = @cells.keys
-    coordinates.each do |keys|
-      if coordinate == keys
+    coordinates.any? do |keys|
+      return true if coordinate == keys
+      false
+    end
+  end
+
+  def valid_placement?(ship, array_of_coordinates)
+    if array_of_coordinates == ship.length
       return true
-      else
-        return false
-      end
+    else
+      return false
+    end
+
+  coordinates_consecutive(array_of_coordinates)
+
+  end
+
+  def coordinates_consecutive(array_of_coordinates)
+    array_of_coordinates.each do |coordinate|
+      @letter_array << coordinate.first
+      @number_array << coordinate.last
+    end
+    letters_consecutive
+    numbers_consecutive
+  end
+
+  def letters_consecutive
+    @letter_array.each_cons(2).all? do |letter1, letter2|
+      letter2.ord == letter1.ord + 1
+    end
+  end
+
+  def numbers_consecutive
+    number_array.each_cons(2).all? do |num1, num2|
+      num2 == num1 + 1
     end
   end
 end
