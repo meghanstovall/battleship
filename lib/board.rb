@@ -28,4 +28,21 @@ class Board
       false
     end
   end
+
+  def valid_placement?(ship, array_of_coordinates)
+    if array_of_coordinates == ship.length
+      return true
+    else
+      return false
+    end
+
+  #  coordinates_consecutive(array_of_coordinates)
+
+  end
+
+  # def coordinates_consecutive(array_of_coordinates)
+  #
+  #
+  #
+  # end
 end
