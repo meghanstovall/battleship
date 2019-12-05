@@ -20,4 +20,15 @@ class Board
       "D3" => Cell.new("D3"),
       "D4" => Cell.new("D4"),}
   end
+
+  def valid_coordinate?(coordinate)
+    coordinates = @cells.keys
+    coordinates.each do |keys|
+      if coordinate == keys
+      return true
+      else
+        return false
+      end
+    end
+  end
 end
