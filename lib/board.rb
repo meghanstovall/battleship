@@ -1,5 +1,5 @@
 class Board
-  attr_reader :board, :cells
+  attr_reader :board, :cells, :letter_array, :number_array
 
   def initialize
     @letter_array = []
@@ -64,7 +64,7 @@ class Board
   end
 
   def numbers_consecutive
-    number_array.each_cons(2).all? do |num1, num2|
+    @number_array.each_cons(2).all? do |num1, num2|
       num2 == num1 + 1
     end
   end
