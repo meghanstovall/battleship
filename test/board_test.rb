@@ -47,6 +47,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_board_can_place_a_ship
+    skip
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["A1", "A2", "A3"])

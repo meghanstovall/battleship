@@ -32,14 +32,11 @@ class Board
   end
 
   def valid_placement?(ship, array_of_coordinates)
-    if array_of_coordinates == ship.length
-      true
+    if array_of_coordinates.length == ship.length
+      coordinates_consecutive(array_of_coordinates)
     else
-      false
+      return false
     end
-
-  coordinates_consecutive(array_of_coordinates)
-
   end
 
   def coordinates_consecutive(array_of_coordinates)
@@ -49,10 +46,16 @@ class Board
     end
 
     if letters_consecutive && same_numbers
+      @letter_array = []
+      @number_array = []
       true
     elsif numbers_consecutive && same_letters
+      @letter_array = []
+      @number_array = []
       true
     else
+      @letter_array = []
+      @number_array = []
       false
     end
   end
@@ -65,7 +68,7 @@ class Board
 
   def numbers_consecutive
     @number_array.each_cons(2).all? do |num1, num2|
-      num2 == num1 + 1
+      num2.to_i == num1.to_i + 1
     end
   end
 
@@ -82,7 +85,7 @@ class Board
   end
 
   def place(ship, array_of_coordinates)
-    
+
   end
 
 end
