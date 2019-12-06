@@ -32,7 +32,11 @@ class Board
   end
 
   def valid_placement?(ship, array_of_coordinates)
-    if array_of_coordinates.length == ship.length
+    cells_empty = array_of_coordinates.all? do |coordinate|
+      @cells[coordinate].empty?
+    end
+
+    if array_of_coordinates.length == ship.length && cells_empty
       coordinates_consecutive(array_of_coordinates)
     else
       return false
@@ -87,6 +91,12 @@ class Board
   def place(ship, array_of_coordinates)
     array_of_coordinates.each do |coordinate|
       @cells[coordinate].place_ship(ship)
+    end
+  end
+
+  def render(value = false)
+    @cells.each do |coordinate|
+      
     end
   end
 end
