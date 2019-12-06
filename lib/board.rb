@@ -85,7 +85,8 @@ class Board
   end
 
   def place(ship, array_of_coordinates)
-
+    array_of_coordinates.each do |coordinate|
+      @cells[coordinate].place_ship(ship)
+    end
   end
-
 end
