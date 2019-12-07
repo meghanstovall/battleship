@@ -32,14 +32,15 @@ class Board
   end
 
   def valid_placement?(ship, array_of_coordinates)
-    if array_of_coordinates == ship.length
-      true
+    cells_empty = array_of_coordinates.all? do |coordinate|
+      @cells[coordinate].empty?
+    end
+
+    if array_of_coordinates.length == ship.length && cells_empty
+      coordinates_consecutive(array_of_coordinates)
     else
       false
     end
-
-  coordinates_consecutive(array_of_coordinates)
-
   end
 
   def coordinates_consecutive(array_of_coordinates)
@@ -49,10 +50,16 @@ class Board
     end
 
     if letters_consecutive && same_numbers
+      @letter_array = []
+      @number_array = []
       true
     elsif numbers_consecutive && same_letters
+      @letter_array = []
+      @number_array = []
       true
     else
+      @letter_array = []
+      @number_array = []
       false
     end
   end
@@ -65,7 +72,8 @@ class Board
 
   def numbers_consecutive
     @number_array.each_cons(2).all? do |num1, num2|
-      num2 == num1 + 1
+
+      num2.to_i == num1.to_i + 1
     end
   end
 
@@ -81,4 +89,25 @@ class Board
     end
   end
 
+  def place(ship, array_of_coordinates)
+    array_of_coordinates.each do |coordinate|
+      @cells[coordinate].place_ship(ship)
+    end
+  end
+
+  def render(value = false)
+    if value == false
+      "  1 2 3 4 \n" +
+      "A #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render} \n" +
+      "B #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \n" +
+      "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \n" +
+      "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render(value)} \n"
+    else
+      "  1 2 3 4 \n" +
+      "A #{@cells["A1"].render(true)} #{@cells["A2"].render(true)} #{@cells["A3"].render(true)} #{@cells["A4"].render} \n" +
+      "B #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \n" +
+      "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \n" +
+      "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render} \n"
+    end
+  end
 end
