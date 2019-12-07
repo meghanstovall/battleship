@@ -81,6 +81,4 @@ class BoardTest < Minitest::Test
     
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
   end
-
-
 end
