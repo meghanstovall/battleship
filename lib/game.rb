@@ -1,3 +1,6 @@
+require './lib/board'
+require './lib/ship'
+
 class Game
 
   attr_reader :computer_board,
