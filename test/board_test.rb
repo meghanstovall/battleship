@@ -46,7 +46,7 @@ class BoardTest < Minitest::Test
     assert_equal true, board.valid_placement?(cruiser, ["A2", "A3", "A4"])
   end
 
-  def test_coordinates_consecutive
+  def test_coordinates_consecutive_and_helper_methods
     board = Board.new
     coordinates1 = ["A1", "B1"]
     coordinates2 = ["A1", "D1"]

@@ -30,6 +30,7 @@ class Game
         quit
       end
 
+      #These need to be moved into our play method
       place_computer_ships(@computer_cruiser)
       place_computer_ships(@computer_submarine)
       place_user_ships(@computer_cruiser)
@@ -71,7 +72,7 @@ class Game
 
     user_coordinates = array.new
     until board.valid_placement?(ship, user_coordinates)
-      "These are invalid coordinates, please try again"
+      "These are invalid coordinates, please try again!"
 
       "Enter the squares for the #{ship} (#{ship.length} spaces)"
       user_coordinates << gets.chomp
