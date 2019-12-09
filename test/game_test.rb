@@ -37,5 +37,4 @@ class GameTest < Minitest::Test
 
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", game.board_display
   end
-
 end
