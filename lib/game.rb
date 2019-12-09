@@ -1,5 +1,12 @@
 class Game
 
+  attr_reader :computer_board,
+              :computer_cruiser,
+              :computer_submarine,
+              :user_board,
+              :user_cruiser,
+              :user_submarine
+
   def initialize
     @computer_board = Board.new()
     @computer_cruiser = Ship.new("Cruiser", 3)
