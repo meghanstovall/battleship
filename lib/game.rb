@@ -1,4 +1,14 @@
+require './lib/board'
+require './lib/ship'
+
 class Game
+
+  attr_reader :computer_board,
+              :computer_cruiser,
+              :computer_submarine,
+              :user_board,
+              :user_cruiser,
+              :user_submarine
 
   def initialize
     @computer_board = Board.new()
@@ -19,19 +29,25 @@ class Game
       else
         quit
       end
+  end
 
-      place_computer_ships(@computer_cruiser)
-      place_computer_ships(@computer_submarine)
-      place_user_ships(@computer_cruiser)
-      place_user_ships(@computer_submarine)
+  def play
+    place_computer_ships(@computer_cruiser)
+    place_computer_ships(@computer_submarine)
+    place_user_ships(@computer_cruiser)
+    place_user_ships(@computer_submarine)
+  end
+
+  def quit
+    start
   end
 
   def place_computer_ships(ship)
-    board.render
+    @computer_board.render
 
     coordinates = []
     coordinates = @computer_board.cells.keys.sample(ship.length)
-    until @computer_board.valid_coordinate(coordinates)
+    until @computer_board.valid_coordinate?(coordinates)
       coordinates = @computer_board.cells.keys.sample(ship.length)
     end
 
@@ -40,7 +56,7 @@ class Game
       @computer_board.place(ship, coordinates)
     else
       coordinates = @computer_board.cells.keys.sample(ship.length)
-      until @computer_board.valid_coordinate(coordinates)
+      until @computer_board.valid_coordinate?(coordinates)
         coordinates = @computer_board.cells.keys.sample(ship.length)
       end
     end
@@ -61,7 +77,7 @@ class Game
 
     user_coordinates = array.new
     until board.valid_placement?(ship, user_coordinates)
-      "These are invalid coordinates, please try again"
+      "These are invalid coordinates, please try again!"
 
       "Enter the squares for the #{ship} (#{ship.length} spaces)"
       user_coordinates << gets.chomp
