@@ -1,7 +1,8 @@
 require './lib/cell'
 
 class Board
-  attr_reader :board, :cells, :letter_array, :number_array
+  attr_reader :board, :cells
+  attr_accessor :letter_array, :number_array
 
   def initialize
     @letter_array = []
