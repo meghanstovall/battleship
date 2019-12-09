@@ -29,20 +29,25 @@ class Game
       else
         quit
       end
+  end
 
-      #These need to be moved into our play method
-      place_computer_ships(@computer_cruiser)
-      place_computer_ships(@computer_submarine)
-      place_user_ships(@computer_cruiser)
-      place_user_ships(@computer_submarine)
+  def play
+    place_computer_ships(@computer_cruiser)
+    place_computer_ships(@computer_submarine)
+    place_user_ships(@computer_cruiser)
+    place_user_ships(@computer_submarine)
+  end
+
+  def quit
+    start
   end
 
   def place_computer_ships(ship)
-    board.render
+    @computer_board.render
 
     coordinates = []
     coordinates = @computer_board.cells.keys.sample(ship.length)
-    until @computer_board.valid_coordinate(coordinates)
+    until @computer_board.valid_coordinate?(coordinates)
       coordinates = @computer_board.cells.keys.sample(ship.length)
     end
 
@@ -51,7 +56,7 @@ class Game
       @computer_board.place(ship, coordinates)
     else
       coordinates = @computer_board.cells.keys.sample(ship.length)
-      until @computer_board.valid_coordinate(coordinates)
+      until @computer_board.valid_coordinate?(coordinates)
         coordinates = @computer_board.cells.keys.sample(ship.length)
       end
     end

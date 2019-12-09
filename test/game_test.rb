@@ -24,4 +24,11 @@ class GameTest < Minitest::Test
     assert_instance_of Ship, game.computer_submarine
     assert_instance_of Ship, game.user_submarine
   end
+
+  def test_start_method
+    game = Game.new
+
+
+    assert_equal "Enter p to play. Enter q to quit", game.start
+  end
 end
