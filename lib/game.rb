@@ -87,4 +87,36 @@ class Game
 
     @user_board.render
   end
+
+  def take_turn
+    board_display
+    "Enter the coordinate for your shot"
+    coordinates_to_fire_upon = get.chomps
+
+    until @computer_board.valid_coordinate?(coordinates_to_fire_upon)
+      "Please enter a valid coordinate:"
+      coordinates_to_fire_upon = get.chomps
+    end
+
+    @computer_board.cells[coordinates_to_fire_upon].fire_upon
+
+    coordinates_computer_fires_upon = @computer_board.cells.keys.sample
+    until coordinates_computer_fires_upon.fired_upon == false
+      coordinates_computer_fires_upon = @computer_board.cells.keys.sample
+    end
+
+    @user_board.cells[coordinates_computer_fires_upon].fire_upon
+
+  end
+
+  def board_display
+    "=============COMPUTER BOARD============="
+
+    @computer_board.render
+
+    "==============PLAYER BOARD=============="
+
+    @user_board.render
+  end
+
 end
