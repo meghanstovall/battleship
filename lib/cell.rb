@@ -25,16 +25,16 @@ class Cell
   end
 
   def render(value = false)
-    if @fired_upon == false && value == false
-      "."
-    elsif @fired_upon == true && @ship == nil
+    if @fired_upon && empty?
       "M"
-    elsif @fired_upon == true && @ship.sunk == true
+    elsif @fired_upon && @ship.sunk
       "X"
-    elsif @fired_upon == true && @ship != nil
+    elsif @fired_upon && !empty?
       "H"
-    elsif value == true && @ship != nil
+    elsif value == true && !empty?
       "S"
+    else
+      "."
     end
   end
 
