@@ -99,18 +99,10 @@ class Board
   end
 
   def render(value = false)
-    if value == false
-      p "  1 2 3 4 \n" +
-      "A #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render} \n" +
-      "B #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \n" +
-      "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \n" +
-      "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render} \n"
-    else
-      p "  1 2 3 4 \n" +
-      "A #{@cells["A1"].render(true)} #{@cells["A2"].render(true)} #{@cells["A3"].render(true)} #{@cells["A4"].render} \n" +
-      "B #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \n" +
-      "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \n" +
-      "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render} \n"
-    end
+       "  1 2 3 4 \n" +
+       "A #{@cells["A1"].render(value)} #{@cells["A2"].render(value)} #{@cells["A3"].render(value)} #{@cells["A4"].render(value)} \n" +
+       "B #{@cells["B1"].render(value)} #{@cells["B2"].render(value)} #{@cells["B3"].render(value)} #{@cells["B4"].render(value)} \n" +
+       "C #{@cells["C1"].render(value)} #{@cells["C2"].render(value)} #{@cells["C3"].render(value)} #{@cells["C4"].render(value)} \n" +
+       "D #{@cells["D1"].render(value)} #{@cells["D2"].render(value)} #{@cells["D3"].render(value)} #{@cells["D4"].render(value)} \n"
   end
 end

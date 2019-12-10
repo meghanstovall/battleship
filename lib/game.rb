@@ -43,7 +43,7 @@ class Game
   end
 
   def place_computer_ships(ship)
-    @computer_board.render
+    puts @computer_board.render
 
     coordinates = []
     single_coordinate = ""
@@ -76,7 +76,7 @@ class Game
   end
 
   def place_user_ships(ship)
-    @user_board.render
+    puts @user_board.render
 
     user_coordinates = []
     until @user_board.valid_placement?(ship, user_coordinates)
@@ -87,7 +87,7 @@ class Game
       user_coordinates.split(" ")
     end
     @user_board.place(ship, user_coordinates)
-    @user_board.render
+    puts @user_board.render
 
     #added this if statement
     if ship == @user_submarine
