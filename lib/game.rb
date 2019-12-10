@@ -26,8 +26,11 @@ class Game
     user_answer = gets.chomp
       if user_answer == "p"
         play
+      elsif user_answer == "q"
+        start
       else
-        quit
+        "Invalid input, please try again."
+        start
       end
   end
 
@@ -36,10 +39,6 @@ class Game
     place_computer_ships(@computer_submarine)
     place_user_ships(@computer_cruiser)
     place_user_ships(@computer_submarine)
-  end
-
-  def quit
-    start
   end
 
   def place_computer_ships(ship)
