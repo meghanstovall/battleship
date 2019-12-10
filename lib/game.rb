@@ -86,4 +86,55 @@ class Game
 
     @user_board.render
   end
+
+  def take_turn
+    board_display
+    "Enter the coordinate for your shot"
+    coordinates_to_fire_upon = get.chomps
+
+    until @computer_board.valid_coordinate?(coordinates_to_fire_upon)
+      "Please enter a valid coordinate:"
+      coordinates_to_fire_upon = get.chomps
+    end
+
+    @computer_board.cells[coordinates_to_fire_upon].fire_upon
+
+    coordinates_computer_fires_upon = @computer_board.cells.keys.sample
+    until coordinates_computer_fires_upon.fired_upon == false
+      coordinates_computer_fires_upon = @computer_board.cells.keys.sample
+    end
+
+    @user_board.cells[coordinates_computer_fires_upon].fire_upon
+
+    shot_results(coordinates_to_fire_upon, coordinates_computer_fires_upon)
+  end
+
+  def board_display
+    "=============COMPUTER BOARD============="
+
+    @computer_board.render
+
+    "==============PLAYER BOARD=============="
+
+    @user_board.render
+  end
+
+  def shot_results(coordinates_to_fire_upon, coordinates_computer_fires_upon)
+
+    if @computer_board.cells[coordinates_to_fire_upon].fired_upon && @computer_board.cells[coordinates_to_fire_upon].ship == nil
+      "Your shot on #{coordinates_to_fire_upon} was a miss"
+    elsif @computer_board.cells[coordinates_to_fire_upon].fired_upon && @computer_board.cells[coordinates_to_fire_upon].ship.sunk
+      "Your shot on #{coordinates_to_fire_upon} sunk an enemy ship"
+    else
+      "Your shot on #{coordinates_to_fire_upon} hit an enemy ship"
+    end
+
+    if @user_board.cells[coordinates_computer_fires_upon].fired_upon && @user_board.cells[coordinates_computer_fires_upon].ship == nil
+      "My shot on #{coordinates_computer_fires_upon} was a miss"
+    elsif @user_board.cells[coordinates_computer_fires_upon].fired_upon && @user_board.cells[coordinates_computer_fires_upon].ship.sunk
+      "My shot on #{coordinates_computer_fires_upon} sunk an enemy ship"
+    else
+      "My shot on #{coordinates_computer_fires_upon} hit an enemy ship"
+    end
+  end
 end

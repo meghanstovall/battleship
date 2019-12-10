@@ -31,4 +31,10 @@ class GameTest < Minitest::Test
 
     assert_equal "Enter p to play. Enter q to quit", game.start
   end
+
+  def test_board_displays
+    game = Game.new()
+
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", game.board_display
+  end
 end
