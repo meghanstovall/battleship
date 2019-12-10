@@ -46,11 +46,14 @@ class Game
     @computer_board.render
 
     coordinates = []
-    coordinates = @computer_board.cells.keys.sample(ship.length)
-    until @computer_board.valid_coordinate?(coordinates)
-      coordinates = @computer_board.cells.keys.sample(ship.length)
+    single_coordinate = ""
+    ship.length.times do
+      single_coordinate = @computer_board.cells.keys.sample
+      until @computer_board.valid_coordinate?(single_coordinate)
+        single_coordinate = @computer_board.cells.keys.sample
+      end
+      coordinates << single_coordinate
     end
-
 
     if @computer_board.valid_placement?(ship, coordinates)
       @computer_board.place(ship, coordinates)

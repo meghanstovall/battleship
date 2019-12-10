@@ -20,7 +20,7 @@ class BoardTest < Minitest::Test
     assert_instance_of Cell, board.cells["A1"]
   end
 
-  def test_that_a_coordinate_exists
+  def test_that_its_a_valid_coordinate
     board = Board.new
 
     assert_equal true, board.valid_coordinate?("A1")

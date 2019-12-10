@@ -26,6 +26,7 @@ class GameTest < Minitest::Test
   end
 
   def test_place_user_ships
+    skip
     game = Game.new()
     user_board = game.user_board
     user_submarine = game.user_submarine
