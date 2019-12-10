@@ -25,9 +25,7 @@ class Cell
   end
 
   def render(value = false)
-    if value == true
-      "S"
-    elsif @fired_upon == false
+    if @fired_upon == false && value == false
       "."
     elsif @fired_upon == true && @ship == nil
       "M"
@@ -35,6 +33,8 @@ class Cell
       "X"
     elsif @fired_upon == true && @ship != nil
       "H"
+    elsif value == true && @ship != nil
+      "S"
     end
   end
 
