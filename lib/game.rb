@@ -75,8 +75,8 @@ class Game
   def place_user_ships(ship)
     @user_board.render
 
-    user_coordinates = array.new
-    until board.valid_placement?(ship, user_coordinates)
+    user_coordinates = []
+    until @user_board.valid_placement?(ship, user_coordinates)
       puts "These are invalid coordinates, please try again!"
 
       puts "Enter the squares for the #{ship} (#{ship.length} spaces)"
