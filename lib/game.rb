@@ -23,7 +23,6 @@ class Game
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter q to quit"
 
-    #added the elsif and else statements
     user_answer = gets.chomp
       if user_answer == "p"
         play
@@ -36,8 +35,8 @@ class Game
   end
 
   def play
-    # place_computer_ships(@computer_cruiser)
-    # place_computer_ships(@computer_submarine)
+    place_computer_ships(@computer_cruiser)
+    place_computer_ships(@computer_submarine)
     place_user_ships(@computer_cruiser)
     place_user_ships(@computer_submarine)
   end
@@ -90,13 +89,11 @@ class Game
     @user_board.place(ship, user_coordinates_array)
     puts @user_board.render
 
-    #added this if statement
     if ship.name == "Submarine"
       player_done_placing
     end
   end
 
-  #added this method
   def player_done_placing
     puts "I have placed my ships"
     puts "It is your turn"
@@ -116,7 +113,7 @@ class Game
 
     #this is for the computer taking a turn
     coordinates_computer_fires_upon = @computer_board.cells.keys.sample
-    until coordinates_computer_fires_upon.fired_upon == false
+    until @user_board.cells[coordinates_computer_fires_upon].fired_upon == false
       coordinates_computer_fires_upon = @computer_board.cells.keys.sample
     end
     @user_board.cells[coordinates_computer_fires_upon].fire_upon
@@ -146,6 +143,16 @@ class Game
       puts "My shot on #{coordinates_computer_fires_upon} sunk an enemy ship"
     else
       puts "My shot on #{coordinates_computer_fires_upon} hit an enemy ship"
+    end
+
+    until @user_cruiser.sunk && @user_submarine.sunk || @computer_cruiser.sunk && @computer_submarine.sunk
+      take_turn
+    end
+
+    if @user_cruiser.sunk && @user_submarine.sunk
+        puts "It appears I have defeated your forces. Better luck next time, rookie"
+    else @computer_cruiser.sunk && @computer_submarine.sunk
+        puts "It appears you have emerged victorious. You may have won the battle, but I'll still win this war."
     end
   end
 end
