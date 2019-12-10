@@ -36,32 +36,33 @@ class Game
   end
 
   def play
-    place_computer_ships(@computer_cruiser)
-    place_computer_ships(@computer_submarine)
+    # place_computer_ships(@computer_cruiser)
+    # place_computer_ships(@computer_submarine)
     place_user_ships(@computer_cruiser)
     place_user_ships(@computer_submarine)
   end
 
   def place_computer_ships(ship)
     puts @computer_board.render
-
+    #
+    # coordinates = []
+    # single_coordinate = ""
+    # ship.length.times do
+    #   single_coordinate = @computer_board.cells.keys.sample
+    #   until @computer_board.valid_coordinate?(single_coordinate)
+    #     single_coordinate = @computer_board.cells.keys.sample
+    #   end
+    #   coordinates << single_coordinate
+    # end
     coordinates = []
-    single_coordinate = ""
-    ship.length.times do
-      single_coordinate = @computer_board.cells.keys.sample
-      until @computer_board.valid_coordinate?(single_coordinate)
-        single_coordinate = @computer_board.cells.keys.sample
-      end
-      coordinates << single_coordinate
-    end
-
     if @computer_board.valid_placement?(ship, coordinates)
       @computer_board.place(ship, coordinates)
     else
       coordinates = @computer_board.cells.keys.sample(ship.length)
-      until @computer_board.valid_coordinate?(coordinates)
+      until @computer_board.valid_placement?(ship, coordinates)
         coordinates = @computer_board.cells.keys.sample(ship.length)
       end
+      @computer_board.place(ship, coordinates)
     end
 
     if ship == @user_submarine
@@ -78,19 +79,19 @@ class Game
   def place_user_ships(ship)
     puts @user_board.render
 
-    user_coordinates = []
-    until @user_board.valid_placement?(ship, user_coordinates)
+    user_coordinates_array = []
+    until @user_board.valid_placement?(ship, user_coordinates_array)
       puts "These are invalid coordinates, please try again!"
 
-      puts "Enter the squares for the #{ship} (#{ship.length} spaces)"
-      user_coordinates << gets.chomp
-      user_coordinates.split(" ")
+      puts "Enter the squares for the #{ship.name} (#{ship.length} spaces)"
+      user_coordinates = gets.chomp
+      user_coordinates_array = user_coordinates.split(" ")
     end
-    @user_board.place(ship, user_coordinates)
+    @user_board.place(ship, user_coordinates_array)
     puts @user_board.render
 
     #added this if statement
-    if ship == @user_submarine
+    if ship.name == "Submarine"
       player_done_placing
     end
   end
@@ -105,11 +106,11 @@ class Game
   def take_turn
     board_display
     puts "Enter the coordinate for your shot"
-    coordinates_to_fire_upon = get.chomps
+    coordinates_to_fire_upon = gets.chomp
 
     until @computer_board.valid_coordinate?(coordinates_to_fire_upon)
       puts "Please enter a valid coordinate:"
-      coordinates_to_fire_upon = get.chomps
+      coordinates_to_fire_upon = gets.chomp
     end
     @computer_board.cells[coordinates_to_fire_upon].fire_upon
 
@@ -125,9 +126,9 @@ class Game
 
   def board_display
     puts "=============COMPUTER BOARD============="
-    @computer_board.render
+    puts @computer_board.render
     puts "==============PLAYER BOARD=============="
-    @user_board.render
+    puts @user_board.render
   end
 
   def shot_results(coordinates_to_fire_upon, coordinates_computer_fires_upon)
