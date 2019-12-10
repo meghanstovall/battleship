@@ -76,7 +76,7 @@ class Game
   end
 
   def place_user_ships(ship)
-    puts @user_board.render
+    puts @user_board.render(true)
 
     user_coordinates_array = []
     until @user_board.valid_placement?(ship, user_coordinates_array)
@@ -87,7 +87,7 @@ class Game
       user_coordinates_array = user_coordinates.split(" ")
     end
     @user_board.place(ship, user_coordinates_array)
-    puts @user_board.render
+    puts @user_board.render(true)
 
     if ship.name == "Submarine"
       player_done_placing
@@ -125,7 +125,7 @@ class Game
     puts "=============COMPUTER BOARD============="
     puts @computer_board.render
     puts "==============PLAYER BOARD=============="
-    puts @user_board.render
+    puts @user_board.render(true)
   end
 
   def shot_results(coordinates_to_fire_upon, coordinates_computer_fires_upon)
