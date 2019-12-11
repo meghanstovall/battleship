@@ -20,5 +20,4 @@ class Ship
       @sunk = true
     end
   end
-
 end

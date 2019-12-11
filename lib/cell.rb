@@ -31,7 +31,7 @@ class Cell
       "X"
     elsif @fired_upon && !empty?
       "H"
-    elsif value == true && !empty?
+    elsif !@fired_upon && !empty? && value
       "S"
     else
       "."
