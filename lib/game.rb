@@ -28,9 +28,9 @@ class Game
     puts "Enter p to play. Enter q to quit"
 
     user_answer = gets.chomp
-      if user_answer == "p"
+      if user_answer.upcase == "P"
         play
-      elsif user_answer == "q"
+      elsif user_answer.upcase == "Q"
         start
       else
         puts "Invalid input, please try again."
@@ -73,13 +73,13 @@ class Game
     puts "Enter the squares for the #{ship.name} (#{ship.length} spaces)"
     puts "Enter your coordinates in order, and without commas"
     user_coordinates = gets.chomp
-    user_coordinates_array = user_coordinates.split(" ")
+    user_coordinates_array = user_coordinates.upcase.split(" ")
 
     until @user_board.valid_placement?(ship, user_coordinates_array)
       puts "These are invalid coordinates, please try again!"
       puts "Enter the squares for the #{ship.name} (#{ship.length} spaces)"
       user_coordinates = gets.chomp
-      user_coordinates_array = user_coordinates.split(" ")
+      user_coordinates_array = user_coordinates.upcase.split(" ")
     end
     @user_board.place(ship, user_coordinates_array)
 
@@ -106,12 +106,12 @@ class Game
 
   def player_take_turn
     puts "Enter the coordinate for your shot"
-    @coordinates_to_fire_on = gets.chomp
+    @coordinates_to_fire_on = gets.chomp.upcase
     until @computer_board.valid_coordinate?(@coordinates_to_fire_on)
       puts "Please enter a valid coordinate:"
-      @coordinates_to_fire_on = gets.chomp
+      @coordinates_to_fire_on = gets.chomp.upcase
     end
-    @computer_board.cells[@coordinates_to_fire_on].fire_upon
+    @computer_board.cells[@coordinates_to_fire_on.upcase].fire_upon
   end
 
   def computer_take_turn

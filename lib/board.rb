@@ -29,8 +29,7 @@ class Board
   def valid_coordinate?(coordinate)
     coordinates = @cells.keys
     coordinates.any? do |keys|
-      return true if coordinate == keys
-      false
+      coordinate == keys && @cells[coordinate].fired_upon == false
     end
   end
 
