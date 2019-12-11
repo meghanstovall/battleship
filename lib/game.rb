@@ -42,8 +42,6 @@ class Game
   end
 
   def place_computer_ships(ship)
-    puts @computer_board.render
-    #
     # coordinates = []
     # single_coordinate = ""
     # ship.length.times do
@@ -64,7 +62,7 @@ class Game
       @computer_board.place(ship, coordinates)
     end
 
-    if ship == @user_submarine
+    if ship == @computer_submarine
       computer_done_placing
     end
   end
@@ -77,8 +75,10 @@ class Game
 
   def place_user_ships(ship)
     puts @user_board.render(true)
+    puts "Enter the squares for the #{ship.name} (#{ship.length} spaces)"
+    user_coordinates = gets.chomp
+    user_coordinates_array = user_coordinates.split(" ")
 
-    user_coordinates_array = []
     until @user_board.valid_placement?(ship, user_coordinates_array)
       puts "These are invalid coordinates, please try again!"
 
@@ -87,7 +87,6 @@ class Game
       user_coordinates_array = user_coordinates.split(" ")
     end
     @user_board.place(ship, user_coordinates_array)
-    puts @user_board.render(true)
 
     if ship.name == "Submarine"
       player_done_placing
