@@ -14,9 +14,13 @@ class Game
     @computer_board = Board.new()
     @computer_cruiser = Ship.new("Cruiser", 3)
     @computer_submarine = Ship.new("Submarine", 2)
+
     @user_board = Board.new()
     @user_cruiser = Ship.new("Cruiser", 3)
     @user_submarine = Ship.new("Submarine", 2)
+
+    @coordinates_to_fire_on = ''
+    @coordinates_computer_fires_on = ''
   end
 
   def start
@@ -42,7 +46,7 @@ class Game
   end
 
   def place_computer_ships(ship)
-        coordinates = []
+    coordinates = []
     if @computer_board.valid_placement?(ship, coordinates)
       @computer_board.place(ship, coordinates)
     else
@@ -73,7 +77,6 @@ class Game
 
     until @user_board.valid_placement?(ship, user_coordinates_array)
       puts "These are invalid coordinates, please try again!"
-
       puts "Enter the squares for the #{ship.name} (#{ship.length} spaces)"
       user_coordinates = gets.chomp
       user_coordinates_array = user_coordinates.split(" ")
@@ -88,32 +91,35 @@ class Game
   def player_done_placing
     puts "I have placed my ships"
     puts "It is your turn"
-    take_turn
+    turn
   end
 
-  def take_turn
+  def turn
     until @user_cruiser.sunk && @user_submarine.sunk || @computer_cruiser.sunk && @computer_submarine.sunk
       board_display
-      puts "Enter the coordinate for your shot"
-      coordinates_to_fire_upon = gets.chomp
-
-      until @computer_board.valid_coordinate?(coordinates_to_fire_upon)
-        puts "Please enter a valid coordinate:"
-        coordinates_to_fire_upon = gets.chomp
-      end
-      @computer_board.cells[coordinates_to_fire_upon].fire_upon
-
-      #this is for the computer taking a turn
-      coordinates_computer_fires_upon = @computer_board.cells.keys.sample
-      until @user_board.cells[coordinates_computer_fires_upon].fired_upon == false
-        coordinates_computer_fires_upon = @computer_board.cells.keys.sample
-      end
-      @user_board.cells[coordinates_computer_fires_upon].fire_upon
-
-      shot_results(coordinates_to_fire_upon, coordinates_computer_fires_upon)
-
-      end
+      player_take_turn
+      computer_take_turn
+      shot_results(@coordinates_to_fire_on, @coordinates_computer_fires_on)
+    end
     game_over
+  end
+
+  def player_take_turn
+    puts "Enter the coordinate for your shot"
+    @coordinates_to_fire_on = gets.chomp
+    until @computer_board.valid_coordinate?(@coordinates_to_fire_on)
+      puts "Please enter a valid coordinate:"
+      @coordinates_to_fire_on = gets.chomp
+    end
+    @computer_board.cells[@coordinates_to_fire_on].fire_upon
+  end
+
+  def computer_take_turn
+    @coordinates_computer_fires_on = @computer_board.cells.keys.sample
+    until @user_board.cells[@coordinates_computer_fires_on].fired_upon == false
+      @coordinates_computer_fires_on = @computer_board.cells.keys.sample
+    end
+    @user_board.cells[@coordinates_computer_fires_on].fire_upon
   end
 
   def board_display
@@ -139,34 +145,13 @@ class Game
     else
       puts "My shot on #{coordinates_computer_fires_upon} hit one of your ships"
     end
-
-    def take_turn
-      board_display
-      puts "Enter the coordinate for your shot"
-      coordinates_to_fire_upon = gets.chomp
-
-      until @computer_board.valid_coordinate?(coordinates_to_fire_upon)
-        puts "Please enter a valid coordinate:"
-        coordinates_to_fire_upon = gets.chomp
-      end
-      @computer_board.cells[coordinates_to_fire_upon].fire_upon
-
-      #this is for the computer taking a turn
-      coordinates_computer_fires_upon = @computer_board.cells.keys.sample
-      until @user_board.cells[coordinates_computer_fires_upon].fired_upon == false
-        coordinates_computer_fires_upon = @computer_board.cells.keys.sample
-      end
-      @user_board.cells[coordinates_computer_fires_upon].fire_upon
-
-      shot_results(coordinates_to_fire_upon, coordinates_computer_fires_upon)
-    end
   end
 
-    def game_over
-      if @user_cruiser.sunk && @user_submarine.sunk
-          puts "It appears I have defeated your forces. Better luck next time, rookie"
-      else @computer_cruiser.sunk && @computer_submarine.sunk
-          puts "It appears you have emerged victorious. You may have won the battle, but I'll still win this war."
-      end
+  def game_over
+    if @user_cruiser.sunk && @user_submarine.sunk
+        puts "It appears I have defeated your forces. Better luck next time, rookie"
+    else @computer_cruiser.sunk && @computer_submarine.sunk
+        puts "It appears you have emerged victorious. You may have won the battle, but I'll still win this war."
     end
+  end
 end
