@@ -76,6 +76,7 @@ class Game
   def place_user_ships(ship)
     puts @user_board.render(true)
     puts "Enter the squares for the #{ship.name} (#{ship.length} spaces)"
+    puts "Enter your coordinates in order, and without commas"
     user_coordinates = gets.chomp
     user_coordinates_array = user_coordinates.split(" ")
 
@@ -139,9 +140,9 @@ class Game
     if @user_board.cells[coordinates_computer_fires_upon].fired_upon && @user_board.cells[coordinates_computer_fires_upon].ship == nil
       puts "My shot on #{coordinates_computer_fires_upon} was a miss"
     elsif @user_board.cells[coordinates_computer_fires_upon].fired_upon && @user_board.cells[coordinates_computer_fires_upon].ship.sunk
-      puts "My shot on #{coordinates_computer_fires_upon} sunk an enemy ship"
+      puts "My shot on #{coordinates_computer_fires_upon} sunk one of your enemy ships"
     else
-      puts "My shot on #{coordinates_computer_fires_upon} hit an enemy ship"
+      puts "My shot on #{coordinates_computer_fires_upon} hit one of your ships"
     end
 
     until @user_cruiser.sunk && @user_submarine.sunk || @computer_cruiser.sunk && @computer_submarine.sunk

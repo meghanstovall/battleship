@@ -27,7 +27,7 @@ class Cell
   def render(value = false)
     if @fired_upon && empty?
       "M"
-    elsif @fired_upon && @ship.sunk
+    elsif @fired_upon && !empty? && @ship.sunk
       "X"
     elsif @fired_upon && !empty?
       "H"
