@@ -34,7 +34,7 @@ class Game
       elsif user_answer.upcase == "Q"
         start
       else
-        puts "Invalid input, please try again."
+        puts "Invalid input, please try again.".cyan
         start
       end
   end
@@ -126,7 +126,7 @@ class Game
   def board_display
     puts "=============COMPUTER BOARD=============".magenta.bold
     puts @computer_board.render
-    puts "==============PLAYER BOARD==============".magenta.bold
+    puts "==============YOUR BOARD==============".magenta.bold
     puts @user_board.render(true)
   end
 
