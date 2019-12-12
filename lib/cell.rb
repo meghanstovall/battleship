@@ -1,3 +1,5 @@
+require 'colorize'
+
 class Cell
 
   attr_reader :coordinate, :ship, :fired_upon
@@ -28,11 +30,11 @@ class Cell
     if @fired_upon && empty?
       "M"
     elsif @fired_upon && !empty? && @ship.sunk
-      "X"
+      "X".red
     elsif @fired_upon && !empty?
-      "H"
+      "H".green
     elsif !@fired_upon && !empty? && value
-      "S"
+      "S".black
     else
       "."
     end
