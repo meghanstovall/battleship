@@ -30,11 +30,11 @@ class Cell
     if @fired_upon && empty?
       "M"
     elsif @fired_upon && !empty? && @ship.sunk
-      "X".red
+      "X"
     elsif @fired_upon && !empty?
-      "H".green
+      "H"
     elsif !@fired_upon && !empty? && value
-      "S".black
+      "S"
     else
       "."
     end

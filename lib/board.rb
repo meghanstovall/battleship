@@ -34,11 +34,19 @@ class Board
   end
 
   def valid_placement?(ship, array_of_coordinates)
+    on_board = array_of_coordinates.all? do |coordinate|
+      @cells.include?(coordinate)
+    end
+
+    if !on_board
+      return false
+    end
+
     cells_empty = array_of_coordinates.all? do |coordinate|
       @cells[coordinate].empty?
     end
 
-    if array_of_coordinates.length == ship.length && cells_empty
+    if array_of_coordinates.length == ship.length && cells_empty && on_board
       coordinates_consecutive(array_of_coordinates)
     else
       false
