@@ -46,7 +46,7 @@ class BoardTest < Minitest::Test
     assert_equal true, board.valid_placement?(cruiser, ["A2", "A3", "A4"])
   end
 
-  def test_coordinates_consecutive_and_helper_methods
+  def test_coordinates_consecutive
     board = Board.new
     coordinates1 = ["A1", "B1"]
     coordinates2 = ["A1", "D1"]
@@ -57,6 +57,70 @@ class BoardTest < Minitest::Test
     assert_equal false, board.coordinates_consecutive(coordinates2)
     assert_equal true, board.coordinates_consecutive(coordinates3)
     assert_equal true, board.coordinates_consecutive(coordinates4)
+  end
+
+  def test_letters_consecutive
+    board = Board.new
+
+    board.letter_array = ["A", "B"]
+    assert_equal true, board.letters_consecutive
+
+    board.letter_array = ["A", "D"]
+    assert_equal false, board.letters_consecutive
+
+    board.letter_array = ["A", "A", "A"]
+    assert_equal false, board.letters_consecutive
+
+    board.letter_array = ["B", "C", "D"]
+    assert_equal true, board.letters_consecutive
+  end
+
+  def test_numbers_consecutive
+    board = Board.new
+
+    board.number_array = ["1", "1"]
+    assert_equal false, board.numbers_consecutive
+
+    board.number_array = ["1", "1"]
+    assert_equal false, board.numbers_consecutive
+
+    board.number_array = ["1", "2", "3"]
+    assert_equal true, board.numbers_consecutive
+
+    board.number_array = ["1", "2", "3"]
+    assert_equal true, board.numbers_consecutive
+  end
+
+  def test_same_letters
+    board = Board.new
+
+    board.letter_array = ["B", "B"]
+    assert_equal true, board.same_letters
+
+    board.letter_array = ["A", "D"]
+    assert_equal false, board.same_letters
+
+    board.letter_array = ["A", "A", "A"]
+    assert_equal true, board.same_letters
+
+    board.letter_array = ["B", "C", "D"]
+    assert_equal false, board.same_letters
+  end
+
+  def test_same_numbers
+    board = Board.new
+
+    board.number_array = ["1", "1"]
+    assert_equal true, board.same_numbers
+
+    board.number_array = ["1", "2"]
+    assert_equal false, board.same_numbers
+
+    board.number_array = ["2", "2", "2"]
+    assert_equal true, board.same_numbers
+
+    board.number_array = ["1", "2", "3"]
+    assert_equal false, board.same_numbers
   end
 
   def test_board_can_place_a_ship
@@ -91,7 +155,7 @@ class BoardTest < Minitest::Test
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["A1", "A2", "A3"])
-    
+
     assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", board.render
     assert_equal "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n", board.render(true)
   end

@@ -60,18 +60,20 @@ class Board
     end
 
     if letters_consecutive && same_numbers
-      @letter_array = []
-      @number_array = []
+      empty_both_arrays
       true
     elsif numbers_consecutive && same_letters
-      @letter_array = []
-      @number_array = []
+      empty_both_arrays
       true
     else
-      @letter_array = []
-      @number_array = []
+      empty_both_arrays
       false
     end
+  end
+
+  def empty_both_arrays
+    @letter_array = []
+    @number_array = []
   end
 
   def letters_consecutive
@@ -82,7 +84,6 @@ class Board
 
   def numbers_consecutive
     @number_array.each_cons(2).all? do |num1, num2|
-
       num2.to_i == num1.to_i + 1
     end
   end
