@@ -24,11 +24,15 @@ class Game
     @coordinates_computer_fires_on = ''
   end
 
+  def get_user_input
+    gets.chomp
+  end
+
   def start
     puts "Welcome to BATTLESHIP".cyan
     puts "Enter p to play. Enter q to quit".cyan
 
-    user_answer = gets.chomp
+    user_answer = get_user_input
       if user_answer.upcase == "P"
         play
       elsif user_answer.upcase == "Q"
@@ -73,14 +77,14 @@ class Game
     puts @user_board.render(true)
     puts "Enter the squares for the #{ship.name} (#{ship.length} spaces)".cyan
     puts "Enter your coordinates in order, and without commas".cyan
-    user_coordinates = gets.chomp
+    user_coordinates = get_user_input
     user_coordinates_array = user_coordinates.upcase.split(" ")
 
     until @user_board.valid_placement?(ship, user_coordinates_array)
       puts "These are invalid coordinates, please try again!".cyan
       puts "Enter the squares for the #{ship.name} (#{ship.length} spaces)".cyan
       puts "Enter your coordinates in order, and without commas".cyan
-      user_coordinates = gets.chomp
+      user_coordinates = get_user_input
       user_coordinates_array = user_coordinates.upcase.split(" ")
     end
     @user_board.place(ship, user_coordinates_array)
@@ -107,10 +111,10 @@ class Game
 
   def player_take_turn
     puts "Enter the coordinate for your shot".cyan
-    @coordinates_to_fire_on = gets.chomp.upcase
+    @coordinates_to_fire_on = get_user_input.upcase
     until @computer_board.valid_coordinate?(@coordinates_to_fire_on)
       puts "Please enter a valid coordinate:".cyan
-      @coordinates_to_fire_on = gets.chomp.upcase
+      @coordinates_to_fire_on = get_user_input.upcase
     end
     @computer_board.cells[@coordinates_to_fire_on.upcase].fire_upon
   end
@@ -168,7 +172,7 @@ class Game
 
   def new_game
     puts "Would you like to play again? (y/n)".green
-    user_input = gets.chomp.upcase
+    user_input = get_user_input.upcase
     if user_input == "Y"
       start
     elsif user_input == "N"

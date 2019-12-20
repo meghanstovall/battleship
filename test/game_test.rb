@@ -37,6 +37,6 @@ class GameTest < Minitest::Test
   def test_board_displays
     game = Game.new()
 
-    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", game.board_display
+    assert_equal "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n", game.computer_board.render
   end
 end
