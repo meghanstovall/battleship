@@ -28,13 +28,13 @@ class Cell
 
   def render(value = false)
     if @fired_upon && empty?
-      "M"
+      "M".cyan
     elsif @fired_upon && !empty? && @ship.sunk
-      "X"
+      "X".red
     elsif @fired_upon && !empty?
-      "H"
+      "H".green
     elsif !@fired_upon && !empty? && value
-      "S"
+      "S".black
     else
       "."
     end
